@@ -10,3 +10,5 @@ services:
     restart: always
     environment:
       MONGO_INITDB_DATABASE: parse-server-webplugin
+    volumes: 
+      - ./.dev/mongo-data:/data/db

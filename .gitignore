@@ -269,3 +269,5 @@ temp/
 logs/
 
 build/
+
+.dev/
