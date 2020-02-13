@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "eslint src/index.ts && nodemon",
-    "build": "eslint src/index.ts && rimraf ./build && tsc",
+    "start": "npx eslint src/index.ts && npx nodemon",
+    "build": "npx eslint src/index.ts && npx rimraf ./build && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
