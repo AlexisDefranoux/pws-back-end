@@ -1,5 +1,4 @@
 import express, { Express } from 'express';
-import path from 'path';
 
 const ParseServer = require('parse-server').ParseServer;
 const ParseDashboard = require('parse-dashboard');
@@ -46,7 +45,8 @@ if(IS_DEVELOPMENT) {
             appName: 'parse-webplugin',
         }],
         users,
-    }, IS_DEVELOPMENT);
+    },
+    { allowInsecureHTTP: true });
     app.use("/dashboard", dashboard);
 }
 
