@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import cors from 'cors';
 import path from 'path';
 
 const ParseServer = require('parse-server').ParseServer;
@@ -20,15 +21,20 @@ const app: Express = express();
 const parseServerAPI = new ParseServer({
     databaseURI: DATABASE_URI,
     appId: APP_ID,
+    cloud: path.resolve(__dirname, 'cloud.js'),
     masterKey: MASTER_KEY,
     serverURL: `http://${SERVER_HOST}:${SERVER_PORT}/parse`
 });
+
+app.use(cors());
 
 app.get("/",  (req, res) => {
     res.end("IS_DEVELOPMENT => " + IS_DEVELOPMENT);
 });
 
 app.use('/parse', parseServerAPI);
+
+app.use('/plugins', express.static(path.resolve(__dirname, 'plugins')));
 
 
 
