@@ -271,3 +271,5 @@ logs/
 build/
 
 .dev/
+
+.idea/

@@ -52,7 +52,8 @@ if(IS_DEVELOPMENT) {
             appName: 'parse-webplugin',
         }],
         users,
-    }, IS_DEVELOPMENT);
+    },
+    { allowInsecureHTTP: true });
     app.use("/dashboard", dashboard);
 }
 
