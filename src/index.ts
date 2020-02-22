@@ -34,7 +34,7 @@ app.get("/",  (req, res) => {
 
 app.use('/parse', parseServerAPI);
 
-app.use('/plugins', express.static(path.resolve(__dirname, 'plugins')));
+app.use('/plugins', express.static(path.resolve(process.cwd(), 'plugins')));
 
 
 
