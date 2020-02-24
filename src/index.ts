@@ -23,7 +23,8 @@ const parseServerAPI = new ParseServer({
     appId: APP_ID,
     cloud: path.resolve(__dirname, 'cloud.js'),
     masterKey: MASTER_KEY,
-    serverURL: `http://${SERVER_HOST}:${SERVER_PORT}/parse`
+    serverURL: `http://${SERVER_HOST}:${SERVER_PORT}/parse`,
+    maxUploadSize: '50mb'
 });
 
 app.use(cors());
