@@ -68,6 +68,10 @@ app.use('/parse', parseServerAPI);
 
 app.use('/plugins', express.static(path.resolve(process.cwd(), 'plugins')));
 
+app.get('/music', (req, res) => {
+   res.sendFile(path.resolve(process.cwd(), 'music','CleanGuitarRiff.mp3'))
+});
+
 
 if (IS_DEVELOPMENT) {
     let users: { user: string; pass: string }[] = [];
