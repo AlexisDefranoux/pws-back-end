@@ -36,7 +36,7 @@ app.get("/forkplugin", (req, res) => {
     const idPlugin = req.query.idPlugin;
     const idUser = req.query.idUser;
 
-    let user: any;  // User
+    let user: any;
     const queryUse = new Parse.Query(Parse.Object.extend("User"));
     queryUse.get(idUser).then(queryUserResult => {
         user = queryUserResult;
@@ -47,6 +47,8 @@ app.get("/forkplugin", (req, res) => {
         const cloned = queryResult.clone();
         delete cloned.attributes.objectId;
         cloned.set("user", user);
+        cloned.set("official", false);
+        cloned.set("name", cloned.get("name")+"-forked");
         cloned.save()
             .then((clonedSaved) => {
                 res.send({
@@ -84,8 +86,35 @@ if (IS_DEVELOPMENT) {
         },
         {allowInsecureHTTP: true});
     app.use("/dashboard", dashboard);
+    checkInit();
 }
 
 app.listen(SERVER_PORT, () => console.log(
     `Notre serveur tourne en mode ${process.env.NODE_ENV || 'development'} sur http://localhost:${SERVER_PORT}`
 ));
+
+/*
+Due to issues on dockerized mongodb (https://github.com/docker-library/mongo/issues/74), we can't initalize the database
+with categories, so we use a method that will create the class Category and three categories
+ */
+function checkInit() {
+    const Category = Parse.Object.extend("Category");
+    const query = new Parse.Query(Category);
+    query.find().then( (results) => {
+        if(results.length === 0){
+            const equalizer = new Category();
+            equalizer.set("name", "Equalizer");
+            const synthetizer = new Category();
+            synthetizer.set("name", "Synthetizer");
+            const tuner = new Category();
+            tuner.set("name", "Tuner");
+            const distortion = new Category();
+            distortion.set("name", "Distortion");
+
+            equalizer.save();
+            synthetizer.save();
+            tuner.save();
+            distortion.save();
+        }
+    });
+}
